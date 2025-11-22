@@ -312,6 +312,171 @@
       color: var(--text);
     }
 
+    /* Secciones extra (laboratorio, mini-quiz, glosario) */
+
+    .extra-section {
+      margin-top: 14px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(55,65,81,0.8);
+    }
+
+    .extra-section h3 {
+      font-size: 0.9rem;
+      margin-bottom: 4px;
+    }
+
+    .lab-control {
+      margin-top: 6px;
+      background: rgba(15,23,42,0.85);
+      border-radius: 12px;
+      border: 1px solid rgba(75,85,99,0.9);
+      padding: 8px 10px;
+      font-size: 0.8rem;
+    }
+
+    .lab-control label {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 4px;
+      display: block;
+    }
+
+    .lab-control input[type="range"] {
+      width: 100%;
+      margin: 6px 0;
+    }
+
+    #performance-text {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .mini-quiz-container {
+      margin-top: 8px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr);
+      gap: 8px;
+    }
+
+    @media (max-width: 640px) {
+      .mini-quiz-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .mini-card {
+      background: rgba(15,23,42,0.9);
+      border-radius: 12px;
+      border: 1px solid rgba(75,85,99,0.9);
+      padding: 8px 10px;
+      font-size: 0.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .mini-card .statement {
+      font-weight: 500;
+      color: #e5e7eb;
+    }
+
+    .mini-buttons {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .mini-btn {
+      flex: 1;
+      min-width: 72px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.7);
+      background: rgba(15,23,42,0.9);
+      color: var(--muted);
+      font-size: 0.75rem;
+      padding: 4px 8px;
+      cursor: pointer;
+      transition: background var(--transition-fast), color var(--transition-fast), border var(--transition-fast), transform var(--transition-fast);
+    }
+
+    .mini-btn:hover {
+      transform: translateY(-1px);
+      background: rgba(31,41,55,1);
+      color: var(--text);
+    }
+
+    .mini-btn.correct {
+      background: rgba(22,163,74,0.15);
+      border-color: rgba(22,163,74,0.9);
+      color: #bbf7d0;
+    }
+
+    .mini-btn.incorrect {
+      background: rgba(220,38,38,0.1);
+      border-color: rgba(248,113,113,0.9);
+      color: #fecaca;
+    }
+
+    .mini-feedback {
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    .mini-score {
+      margin-top: 6px;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .mini-score strong {
+      color: #e5e7eb;
+    }
+
+    .glossary {
+      margin-top: 6px;
+      font-size: 0.8rem;
+    }
+
+    details {
+      background: rgba(15,23,42,0.85);
+      border-radius: 10px;
+      border: 1px solid rgba(75,85,99,0.9);
+      padding: 6px 8px;
+      margin-bottom: 4px;
+    }
+
+    summary {
+      cursor: pointer;
+      font-weight: 500;
+      color: #e5e7eb;
+      list-style: none;
+    }
+
+    summary::marker,
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    summary::before {
+      content: "➤";
+      display: inline-block;
+      margin-right: 6px;
+      font-size: 0.7rem;
+      transition: transform 0.2s;
+      color: var(--accent);
+    }
+
+    details[open] summary::before {
+      transform: rotate(90deg);
+    }
+
+    details p {
+      margin-top: 4px;
+      color: var(--muted);
+    }
+
+    /* Quiz principal */
+
     .quiz-header {
       display: flex;
       flex-direction: column;
@@ -375,770 +540,4 @@
       align-items: flex-start;
       gap: 8px;
       cursor: pointer;
-      transition: border var(--transition-fast), background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
-      font-size: 0.9rem;
-    }
-
-    .option-item:hover {
-      border-color: var(--accent);
-      background: rgba(15,23,42,1);
-      transform: translateY(-1px);
-      box-shadow: 0 8px 18px rgba(15,23,42,0.8);
-    }
-
-    .option-item input {
-      margin-top: 2px;
-      accent-color: var(--accent);
-      cursor: pointer;
-    }
-
-    .option-label {
-      line-height: 1.4;
-    }
-
-    #next-btn {
-      width: 100%;
-      margin-top: 4px;
-    }
-
-    .hidden {
-      display: none !important;
-    }
-
-    .results-summary {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin: 10px 0;
-      font-size: 0.9rem;
-    }
-
-    .summary-pill {
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(148,163,184,0.5);
-      background: rgba(15,23,42,0.95);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .summary-pill .dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-    }
-
-    .dot.success {
-      background: var(--success);
-    }
-
-    .dot.error {
-      background: var(--error);
-    }
-
-    .summary-score {
-      font-size: 1.2rem;
-      font-weight: 600;
-    }
-
-    .answers-review {
-      margin-top: 10px;
-      max-height: 260px;
-      overflow-y: auto;
-      padding-right: 4px;
-    }
-
-    .answers-review::-webkit-scrollbar {
-      width: 6px;
-    }
-
-    .answers-review::-webkit-scrollbar-track {
-      background: rgba(15,23,42,0.9);
-      border-radius: 999px;
-    }
-
-    .answers-review::-webkit-scrollbar-thumb {
-      background: rgba(148,163,184,0.6);
-      border-radius: 999px;
-    }
-
-    .answer-card {
-      border-radius: 12px;
-      border: 1px solid rgba(75,85,99,0.9);
-      background: rgba(15,23,42,0.95);
-      padding: 8px 10px;
-      margin-bottom: 6px;
-      font-size: 0.82rem;
-    }
-
-    .answer-card.correct {
-      border-color: rgba(34,197,94,0.8);
-    }
-
-    .answer-card.incorrect {
-      border-color: rgba(239,68,68,0.9);
-      background: rgba(24,24,27,0.98);
-    }
-
-    .answer-card h4 {
-      font-size: 0.82rem;
-      margin-bottom: 4px;
-      color: #e5e7eb;
-    }
-
-    .answer-meta {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-top: 4px;
-    }
-
-    .answer-tag {
-      padding: 3px 8px;
-      border-radius: 999px;
-      font-size: 0.7rem;
-      border: 1px solid rgba(148,163,184,0.5);
-      color: var(--muted);
-    }
-
-    footer {
-      margin-top: 14px;
-      font-size: 0.7rem;
-      color: var(--muted);
-      display: flex;
-      justify-content: space-between;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-  </style>
-</head>
-<body>
-  <div class="app-container">
-    <header>
-      <h1>
-        Cuestionario de Hardware y Redes
-        <span class="chip">Interfaz didáctica y responsiva</span>
-      </h1>
-      <p>
-        Completa tu nombre, explora las tarjetas de estudio y, cuando estés listo, inicia el cuestionario de 10 preguntas
-        seleccionadas aleatoriamente de un banco de ítems sobre hardware y redes de computadoras.
-      </p>
-    </header>
-
-    <main>
-      <!-- Panel izquierdo: bienvenida e interacción previa -->
-      <section class="card" id="intro-section">
-        <h2>1. Datos del estudiante</h2>
-        <p class="subtle">
-          Escribe tu nombre y juega un poco con los recursos antes de empezar. Así activas el botón para iniciar.
-        </p>
-
-        <div class="form-group">
-          <label for="student-name">Nombre del estudiante</label>
-          <input type="text" id="student-name" placeholder="Escribe tu nombre aquí..." autocomplete="off" />
-        </div>
-
-        <button id="start-btn" class="btn" disabled>
-          <span class="icon">▶️</span>
-          Iniciar cuestionario
-        </button>
-
-        <button id="toggle-help" class="btn-secondary" type="button">
-          💡 Ver/ocultar sugerencias de estudio
-        </button>
-
-        <div id="help-area" class="pre-interactive">
-          <div>
-            <h3 style="font-size:0.9rem;margin-bottom:4px;">Explora conceptos clave</h3>
-            <p class="subtle" style="margin-bottom:6px;">
-              Toca un tema para ver una explicación rápida. Esto te prepara para las preguntas.
-            </p>
-            <div class="pill-group">
-              <button class="pill-toggle active" data-topic="hardware">Hardware</button>
-              <button class="pill-toggle" data-topic="software">Software</button>
-              <button class="pill-toggle" data-topic="redes">Red de computadoras</button>
-              <button class="pill-toggle" data-topic="topologias">Topologías</button>
-            </div>
-            <div class="info-panel" id="topic-info">
-              El <strong>hardware</strong> son los componentes físicos del computador: partes que puedes ver y tocar, como teclado, disco duro o tarjeta de red.
-            </div>
-          </div>
-
-          <div>
-            <h3 style="font-size:0.9rem;margin-bottom:4px;">Tarjetas de estudio interactivas</h3>
-            <p class="subtle" style="margin-bottom:6px;">
-              Toca una tarjeta para voltearla y ver la respuesta.
-            </p>
-            <div class="flashcards">
-              <div class="flashcard" data-front="¿Qué es un router?" data-back="Dispositivo que conecta distintas redes y dirige el tráfico de datos entre ellas.">
-                <div class="flashcard-inner">
-                  <div class="flashcard-front">
-                    <div>
-                      <div class="flashcard-title">Pregunta rápida</div>
-                      ¿Qué es un router?
-                    </div>
-                  </div>
-                  <div class="flashcard-back">
-                    <div>
-                      <div class="flashcard-title">Respuesta</div>
-                      Dispositivo que conecta redes y dirige paquetes.
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="flashcard" data-front="¿Qué es la RAM?" data-back="Memoria de acceso aleatorio que almacena datos y programas en uso de forma temporal.">
-                <div class="flashcard-inner">
-                  <div class="flashcard-front">
-                    <div>
-                      <div class="flashcard-title">Pregunta rápida</div>
-                      ¿Qué es la memoria RAM?
-                    </div>
-                  </div>
-                  <div class="flashcard-back">
-                    <div>
-                      <div class="flashcard-title">Respuesta</div>
-                      Memoria principal, rápida y temporal del sistema.
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="flashcard" data-front="¿Qué es dirección IP?" data-back="Identificador numérico único que se asigna a un dispositivo en la red.">
-                <div class="flashcard-inner">
-                  <div class="flashcard-front">
-                    <div>
-                      <div class="flashcard-title">Pregunta rápida</div>
-                      ¿Qué es una dirección IP?
-                    </div>
-                  </div>
-                  <div class="flashcard-back">
-                    <div>
-                      <div class="flashcard-title">Respuesta</div>
-                      Identificador de un dispositivo en la red.
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="flashcard" data-front="¿Qué es un switch?" data-back="Dispositivo que conecta equipos dentro de una misma red LAN y envía datos sólo al puerto destino.">
-                <div class="flashcard-inner">
-                  <div class="flashcard-front">
-                    <div>
-                      <div class="flashcard-title">Pregunta rápida</div>
-                      ¿Para qué sirve un switch?
-                    </div>
-                  </div>
-                  <div class="flashcard-back">
-                    <div>
-                      <div class="flashcard-title">Respuesta</div>
-                      Conectar equipos en una LAN y segmentar tráfico.
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Panel derecho: cuestionario y resultados -->
-      <section class="card" id="quiz-section">
-        <div id="quiz-container">
-          <div class="quiz-header">
-            <div class="quiz-top-row">
-              <div id="student-greeting" class="badge">Estudiante: —</div>
-              <div id="question-counter" class="badge">Pregunta 0 / 10</div>
-            </div>
-            <div class="progress-bar">
-              <div id="progress-fill" class="progress-fill"></div>
-            </div>
-          </div>
-
-          <div id="question-area">
-            <p id="question-text">Escribe tu nombre y pulsa “Iniciar cuestionario” para comenzar.</p>
-            <ul id="options-list"></ul>
-          </div>
-
-          <button id="next-btn" class="btn" disabled>
-            <span class="icon">➡️</span>
-            Siguiente pregunta
-          </button>
-        </div>
-
-        <div id="results-section" class="hidden">
-          <h2>2. Resultados del cuestionario</h2>
-          <p class="subtle" id="results-title"></p>
-
-          <div class="results-summary">
-            <div class="summary-pill">
-              <span class="dot success"></span>
-              <span id="correct-count">0 correctas</span>
-            </div>
-            <div class="summary-pill">
-              <span class="dot error"></span>
-              <span id="incorrect-count">0 incorrectas</span>
-            </div>
-            <div class="summary-pill">
-              🧮 <span id="score-percent" class="summary-score">0%</span>
-            </div>
-          </div>
-
-          <h3 style="font-size:0.9rem;margin:6px 0;">Revisión de preguntas</h3>
-          <div class="answers-review" id="answers-review"></div>
-
-          <button id="restart-btn" class="btn" type="button">
-            <span class="icon">🔄</span>
-            Volver a intentarlo con nuevas preguntas
-          </button>
-        </div>
-      </section>
-    </main>
-
-    <footer>
-      <span>📚 Tema: Hardware y redes de computadoras.</span>
-      <span>Interfaz diseñada para práctica autónoma del estudiante.</span>
-    </footer>
-  </div>
-
-  <script>
-    // ==== Banco de preguntas (hardware y redes) ====
-    const questionBank = [
-      {
-        question: "¿Qué componente se encarga de ejecutar instrucciones y procesar datos en un computador?",
-        options: ["Memoria RAM", "CPU o procesador", "Fuente de poder", "Tarjeta de red"],
-        answer: 1,
-        topic: "Hardware - Procesador"
-      },
-      {
-        question: "¿Cuál de los siguientes es un dispositivo de salida?",
-        options: ["Teclado", "Mouse", "Monitor", "Micrófono"],
-        answer: 2,
-        topic: "Hardware - Periféricos"
-      },
-      {
-        question: "¿Qué tipo de memoria se borra al apagar el computador?",
-        options: ["ROM", "Disco duro", "Unidad SSD", "RAM"],
-        answer: 3,
-        topic: "Hardware - Memoria"
-      },
-      {
-        question: "¿Cuál es la función principal de la tarjeta de red (NIC)?",
-        options: [
-          "Alimentar de energía al equipo",
-          "Conectar el equipo a una red",
-          "Mejorar la calidad de la imagen",
-          "Almacenar datos permanentemente"
-        ],
-        answer: 1,
-        topic: "Redes - NIC"
-      },
-      {
-        question: "¿Cuál de las siguientes opciones describe mejor una red LAN?",
-        options: [
-          "Red de área amplia que conecta países",
-          "Red de área local que cubre un espacio limitado como un edificio",
-          "Red inalámbrica entre satélites",
-          "Red exclusiva de dispositivos móviles"
-        ],
-        answer: 1,
-        topic: "Redes - LAN"
-      },
-      {
-        question: "¿Qué dispositivo se utiliza para interconectar varias computadoras dentro de una misma red local y dirigir los paquetes sólo al puerto destino?",
-        options: ["Hub", "Switch", "Router", "Repetidor"],
-        answer: 1,
-        topic: "Redes - Switch"
-      },
-      {
-        question: "¿Qué dirección sirve para identificar de forma única a un dispositivo en una red TCP/IP?",
-        options: [
-          "Dirección MAC",
-          "Máscara de subred",
-          "Dirección IP",
-          "DNS"
-        ],
-        answer: 2,
-        topic: "Redes - IP"
-      },
-      {
-        question: "¿Cuál de los siguientes medios de transmisión usa cables de cobre trenzados?",
-        options: [
-          "Fibra óptica",
-          "Cable coaxial",
-          "Par trenzado (UTP/STP)",
-          "Ondas de radio"
-        ],
-        answer: 2,
-        topic: "Redes - Medios físicos"
-      },
-      {
-        question: "¿En qué capa del modelo OSI se encuentran los switches de red típicamente?",
-        options: [
-          "Capa de aplicación",
-          "Capa de transporte",
-          "Capa de red",
-          "Capa de enlace de datos"
-        ],
-        answer: 3,
-        topic: "Redes - Modelo OSI"
-      },
-      {
-        question: "¿Qué tipo de dispositivo asigna direcciones IP automáticamente a los equipos de una red?",
-        options: [
-          "Servidor DNS",
-          "Servidor DHCP",
-          "Servidor FTP",
-          "Servidor de impresión"
-        ],
-        answer: 1,
-        topic: "Redes - DHCP"
-      },
-      {
-        question: "¿Cuál es la función principal de la fuente de poder (PSU) en un PC?",
-        options: [
-          "Almacenar información del sistema",
-          "Convertir la energía eléctrica y distribuirla a los componentes",
-          "Enfriar el procesador",
-          "Conectar el PC a Internet"
-        ],
-        answer: 1,
-        topic: "Hardware - Fuente de poder"
-      },
-      {
-        question: "¿Qué componente almacena el sistema operativo y los archivos de manera permanente?",
-        options: [
-          "Memoria caché",
-          "Memoria RAM",
-          "Disco duro o unidad SSD",
-          "Tarjeta gráfica"
-        ],
-        answer: 2,
-        topic: "Hardware - Almacenamiento"
-      },
-      {
-        question: "¿Qué significa la sigla 'LAN' en redes de computadoras?",
-        options: [
-          "Local Area Network",
-          "Long Area Node",
-          "Linked Access Network",
-          "Local Access Node"
-        ],
-        answer: 0,
-        topic: "Redes - Conceptos básicos"
-      },
-      {
-        question: "En una topología de red en estrella:",
-        options: [
-          "Todos los nodos se conectan en un anillo cerrado",
-          "Todos los nodos están conectados a un nodo central",
-          "Cada nodo se conecta sólo con dos vecinos",
-          "No existe ningún nodo central"
-        ],
-        answer: 1,
-        topic: "Redes - Topologías"
-      },
-      {
-        question: "¿Cuál de estos elementos es un periférico de entrada?",
-        options: [
-          "Impresora",
-          "Parlantes",
-          "Scanner",
-          "Proyector"
-        ],
-        answer: 2,
-        topic: "Hardware - Periféricos"
-      },
-      {
-        question: "¿Qué protocolo se utiliza principalmente para la navegación web?",
-        options: [
-          "FTP",
-          "HTTP/HTTPS",
-          "SMTP",
-          "SNMP"
-        ],
-        answer: 1,
-        topic: "Redes - Protocolos"
-      },
-      {
-        question: "¿Cuál de los siguientes componentes está especializado en procesar gráficos y vídeos?",
-        options: [
-          "CPU",
-          "GPU o tarjeta gráfica",
-          "Fuente de poder",
-          "Tarjeta de sonido"
-        ],
-        answer: 1,
-        topic: "Hardware - GPU"
-      },
-      {
-        question: "¿Qué elemento protege a una red contra accesos no autorizados desde el exterior?",
-        options: [
-          "Switch",
-          "Router",
-          "Firewall",
-          "Repetidor"
-        ],
-        answer: 2,
-        topic: "Redes - Seguridad"
-      },
-      {
-        question: "¿Qué estándar de red inalámbrica es muy común para Wi-Fi doméstico?",
-        options: [
-          "IEEE 802.3",
-          "IEEE 802.11",
-          "IEEE 802.5",
-          "IEEE 1394"
-        ],
-        answer: 1,
-        topic: "Redes - Inalámbrico"
-      },
-      {
-        question: "¿Cuál de las siguientes afirmaciones describe mejor a la memoria ROM?",
-        options: [
-          "Memoria de sólo lectura con datos permanentes",
-          "Memoria volátil y muy rápida",
-          "Memoria principal donde se ejecutan programas",
-          "Memoria que almacena archivos de usuario"
-        ],
-        answer: 0,
-        topic: "Hardware - ROM"
-      }
-    ];
-
-    // ==== Estado del cuestionario ====
-    let selectedQuestions = [];
-    let currentIndex = 0;
-    let studentName = "";
-    let answers = []; // {question, selectedIndex, correctIndex, topic}
-
-    // ==== Referencias al DOM ====
-    const nameInput = document.getElementById("student-name");
-    const startBtn = document.getElementById("start-btn");
-    const quizSection = document.getElementById("quiz-section");
-    const studentGreeting = document.getElementById("student-greeting");
-    const questionCounter = document.getElementById("question-counter");
-    const progressFill = document.getElementById("progress-fill");
-    const questionText = document.getElementById("question-text");
-    const optionsList = document.getElementById("options-list");
-    const nextBtn = document.getElementById("next-btn");
-    const resultsSection = document.getElementById("results-section");
-    const resultsTitle = document.getElementById("results-title");
-    const correctCountEl = document.getElementById("correct-count");
-    const incorrectCountEl = document.getElementById("incorrect-count");
-    const scorePercentEl = document.getElementById("score-percent");
-    const answersReview = document.getElementById("answers-review");
-    const restartBtn = document.getElementById("restart-btn");
-
-    const topicButtons = document.querySelectorAll(".pill-toggle");
-    const topicInfo = document.getElementById("topic-info");
-    const flashcards = document.querySelectorAll(".flashcard");
-    const toggleHelpBtn = document.getElementById("toggle-help");
-    const helpArea = document.getElementById("help-area");
-
-    // ==== Interactividad previa (antes de iniciar) ====
-    const topicTexts = {
-      hardware: "El <strong>hardware</strong> son los componentes físicos del computador: partes que puedes ver y tocar, como teclado, disco duro, memoria RAM o tarjeta de red.",
-      software: "El <strong>software</strong> es el conjunto de programas e instrucciones que indican al hardware qué hacer. Ejemplos: sistemas operativos, aplicaciones y juegos.",
-      redes: "Una <strong>red de computadoras</strong> es un conjunto de dispositivos conectados para compartir información y recursos (archivos, impresoras, Internet, etc.).",
-      topologias: "Las <strong>topologías de red</strong> describen cómo se conectan los dispositivos entre sí (estrella, bus, anillo, malla) y afectan el rendimiento y la tolerancia a fallos."
-    };
-
-    topicButtons.forEach(btn => {
-      btn.addEventListener("click", () => {
-        topicButtons.forEach(b => b.classList.remove("active"));
-        btn.classList.add("active");
-        const key = btn.dataset.topic;
-        topicInfo.innerHTML = topicTexts[key] || "";
-      });
-    });
-
-    flashcards.forEach(card => {
-      card.addEventListener("click", () => {
-        card.classList.toggle("flipped");
-      });
-    });
-
-    toggleHelpBtn.addEventListener("click", () => {
-      helpArea.classList.toggle("hidden");
-    });
-
-    // Habilitar botón de inicio cuando haya nombre
-    nameInput.addEventListener("input", () => {
-      const value = nameInput.value.trim();
-      startBtn.disabled = value.length < 2;
-    });
-
-    // ==== Lógica del cuestionario ====
-
-    function shuffleArray(array) {
-      const arr = [...array];
-      for (let i = arr.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [arr[i], arr[j]] = [arr[j], arr[i]];
-      }
-      return arr;
-    }
-
-    function selectRandomQuestions(count) {
-      const shuffled = shuffleArray(questionBank);
-      return shuffled.slice(0, count);
-    }
-
-    function startQuiz() {
-      studentName = nameInput.value.trim();
-      if (!studentName) return;
-
-      selectedQuestions = selectRandomQuestions(10);
-      currentIndex = 0;
-      answers = [];
-
-      studentGreeting.textContent = `Estudiante: ${studentName}`;
-      resultsSection.classList.add("hidden");
-      document.getElementById("quiz-container").classList.remove("hidden");
-
-      renderQuestion();
-    }
-
-    function renderQuestion() {
-      const total = selectedQuestions.length;
-      const q = selectedQuestions[currentIndex];
-
-      questionCounter.textContent = `Pregunta ${currentIndex + 1} / ${total}`;
-      questionText.textContent = q.question;
-      optionsList.innerHTML = "";
-      nextBtn.disabled = true;
-
-      const progressPercent = ((currentIndex) / total) * 100;
-      progressFill.style.width = progressPercent + "%";
-
-      q.options.forEach((opt, index) => {
-        const li = document.createElement("li");
-        li.className = "option-item";
-
-        const input = document.createElement("input");
-        input.type = "radio";
-        input.name = "option";
-        input.value = index;
-        input.id = `opt-${index}`;
-
-        const label = document.createElement("label");
-        label.setAttribute("for", `opt-${index}`);
-        label.className = "option-label";
-        label.textContent = opt;
-
-        li.appendChild(input);
-        li.appendChild(label);
-        optionsList.appendChild(li);
-
-        li.addEventListener("click", () => {
-          input.checked = true;
-          nextBtn.disabled = false;
-        });
-
-        input.addEventListener("change", () => {
-          nextBtn.disabled = false;
-        });
-      });
-
-      nextBtn.innerHTML = currentIndex === total - 1
-        ? '<span class="icon">✅</span> Finalizar y ver resultados'
-        : '<span class="icon">➡️</span> Siguiente pregunta';
-    }
-
-    function handleNext() {
-      const selectedOption = document.querySelector('input[name="option"]:checked');
-      if (!selectedOption) return;
-
-      const selectedIndex = parseInt(selectedOption.value, 10);
-      const q = selectedQuestions[currentIndex];
-
-      answers.push({
-        question: q.question,
-        selectedIndex,
-        correctIndex: q.answer,
-        options: q.options,
-        topic: q.topic
-      });
-
-      currentIndex++;
-
-      if (currentIndex < selectedQuestions.length) {
-        renderQuestion();
-      } else {
-        showResults();
-      }
-    }
-
-    function showResults() {
-      const total = selectedQuestions.length;
-      const correct = answers.filter(a => a.selectedIndex === a.correctIndex).length;
-      const incorrect = total - correct;
-      const percent = Math.round((correct / total) * 100);
-
-      document.getElementById("quiz-container").classList.add("hidden");
-      resultsSection.classList.remove("hidden");
-
-      resultsTitle.textContent = `Muy bien, ${studentName}. Aquí tienes el resumen de tus respuestas.`;
-      correctCountEl.textContent = `${correct} correctas`;
-      incorrectCountEl.textContent = `${incorrect} incorrectas`;
-      scorePercentEl.textContent = `${percent}%`;
-
-      answersReview.innerHTML = "";
-      answers.forEach((a, index) => {
-        const card = document.createElement("div");
-        const isCorrect = a.selectedIndex === a.correctIndex;
-        card.className = "answer-card " + (isCorrect ? "correct" : "incorrect");
-
-        const title = document.createElement("h4");
-        title.textContent = `Pregunta ${index + 1}: ${a.question}`;
-        card.appendChild(title);
-
-        const userAnswer = document.createElement("p");
-        userAnswer.innerHTML = `<strong>Tu respuesta:</strong> ${
-          a.selectedIndex >= 0 ? a.options[a.selectedIndex] : "No respondida"
-        }`;
-        card.appendChild(userAnswer);
-
-        if (!isCorrect) {
-          const correctAnswer = document.createElement("p");
-          correctAnswer.innerHTML = `<strong>Respuesta correcta:</strong> ${a.options[a.correctIndex]}`;
-          card.appendChild(correctAnswer);
-        }
-
-        const meta = document.createElement("div");
-        meta.className = "answer-meta";
-
-        const tag = document.createElement("span");
-        tag.className = "answer-tag";
-        tag.textContent = a.topic;
-
-        const tag2 = document.createElement("span");
-        tag2.className = "answer-tag";
-        tag2.textContent = isCorrect ? "✅ Acertada" : "❌ Fallida";
-
-        meta.appendChild(tag);
-        meta.appendChild(tag2);
-
-        card.appendChild(meta);
-
-        answersReview.appendChild(card);
-      });
-
-      progressFill.style.width = "100%";
-      questionCounter.textContent = `Completaste las ${total} preguntas`;
-    }
-
-    function restartQuiz() {
-      nameInput.focus();
-      // Mantengo el nombre para que el estudiante no tenga que reescribirlo,
-      // pero se puede limpiar si se quiere:
-      // nameInput.value = "";
-      startQuiz();
-    }
-
-    // Eventos
-    startBtn.addEventListener("click", startQuiz);
-    nextBtn.addEventListener("click", handleNext);
-    restartBtn.addEventListener("click", restartQuiz);
-  </script>
-</body>
-</html>
+      transition: border var(--transition-fast), backgroun
