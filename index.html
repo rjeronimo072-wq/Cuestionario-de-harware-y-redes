@@ -2,23 +2,24 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>Cuestionario de Hardware y Redes</title>
+  <title>Aprendiendo Hardware y Redes</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <style>
     :root {
-      --bg: #0f172a;
-      --bg-card: #111827;
-      --accent: #3b82f6;
-      --accent-soft: rgba(59,130,246,0.15);
-      --accent-strong: #1d4ed8;
-      --text: #f9fafb;
+      --bg: #050816;
+      --bg-card: #0f172a;
+      --bg-card-soft: #111827;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.12);
+      --accent-strong: #0ea5e9;
+      --text: #e5e7eb;
       --muted: #9ca3af;
-      --error: #ef4444;
-      --success: #22c55e;
-      --radius: 18px;
+      --danger: #f97373;
+      --success: #4ade80;
+      --radius-xl: 1.25rem;
       --shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.6);
-      --transition-fast: 0.18s ease-out;
+      --shadow-sm: 0 6px 18px rgba(15, 23, 42, 0.7);
     }
 
     * {
@@ -28,516 +29,1466 @@
     }
 
     body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background: radial-gradient(circle at top, #1e293b 0, #020617 50%);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      background: radial-gradient(circle at top, #1f2937 0, #030712 45%, #000 100%);
       color: var(--text);
       min-height: 100vh;
       display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 16px;
-    }
-
-    .app-container {
-      width: 100%;
-      max-width: 1024px;
-      background: linear-gradient(145deg, rgba(15,23,42,0.9), rgba(15,23,42,0.98));
-      border-radius: 24px;
-      box-shadow: var(--shadow-soft);
-      padding: 20px;
-      border: 1px solid rgba(148,163,184,0.2);
-      backdrop-filter: blur(16px);
+      flex-direction: column;
     }
 
     header {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      margin-bottom: 18px;
+      padding: 1.5rem 1.25rem;
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(16px);
+      background: linear-gradient(
+        to bottom,
+        rgba(3, 7, 18, 0.95),
+        rgba(3, 7, 18, 0.75),
+        transparent
+      );
+      border-bottom: 1px solid rgba(148, 163, 184, 0.15);
     }
 
-    header h1 {
-      font-size: clamp(1.5rem, 2.5vw, 2rem);
+    .header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1rem;
+      justify-content: space-between;
+    }
+
+    .logo-title {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 0.75rem;
     }
 
-    .chip {
-      font-size: 0.7rem;
-      padding: 4px 10px;
+    .logo-badge {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #38bdf8, #0f172a 65%, #020617);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 12px 30px rgba(56, 189, 248, 0.45);
+      font-size: 1.2rem;
+    }
+
+    .title-text h1 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #e5e7eb;
+    }
+
+    .title-text p {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .student-box {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      align-items: center;
+      background: rgba(15, 23, 42, 0.9);
       border-radius: 999px;
-      border: 1px solid rgba(148,163,184,0.4);
+      padding: 0.4rem 0.9rem;
+      border: 1px solid rgba(148, 163, 184, 0.25);
+    }
+
+    .student-box span {
+      font-size: 0.8rem;
       color: var(--muted);
     }
 
-    header p {
-      color: var(--muted);
+    .student-box strong {
       font-size: 0.9rem;
-      max-width: 600px;
+      color: var(--accent-strong);
     }
 
     main {
-      display: grid;
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.3fr);
-      gap: 16px;
+      flex: 1;
+      padding: 1.5rem 1.25rem 2.5rem;
     }
 
-    @media (max-width: 768px) {
-      main {
-        grid-template-columns: 1fr;
+    .page-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr);
+      gap: 2rem;
+    }
+
+    @media (max-width: 900px) {
+      .page-inner {
+        grid-template-columns: minmax(0, 1fr);
       }
     }
 
-    .card {
-      background: radial-gradient(circle at top left, rgba(37,99,235,0.18), transparent 55%),
-                  linear-gradient(145deg, rgba(15,23,42,0.95), rgba(17,24,39,1));
-      border-radius: var(--radius);
-      padding: 16px 18px;
-      border: 1px solid rgba(55,65,81,0.8);
-      box-shadow: 0 12px 30px rgba(15,23,42,0.6);
+    /* Panel izquierdo: conceptos */
+    .panel {
+      background: radial-gradient(circle at top left, #0f172a, #020617);
+      border-radius: 1.5rem;
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      box-shadow: var(--shadow-soft);
+      padding: 1.5rem 1.4rem 1.7rem;
       position: relative;
       overflow: hidden;
     }
 
-    .card::before {
+    .panel::before {
       content: "";
       position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at top right, rgba(56,189,248,0.12), transparent 55%);
-      opacity: 0.6;
+      inset: -30%;
+      background: radial-gradient(
+        circle at 10% 0,
+        rgba(56, 189, 248, 0.15),
+        transparent 55%
+      );
+      opacity: 0.5;
       pointer-events: none;
     }
 
-    .card > * {
+    .panel > * {
       position: relative;
-      z-index: 1;
     }
 
-    h2 {
-      font-size: 1.1rem;
-      margin-bottom: 8px;
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 1rem;
     }
 
-    .subtle {
-      font-size: 0.85rem;
-      color: var(--muted);
-    }
-
-    .form-group {
-      margin: 12px 0;
+    .panel-title {
+      font-size: 1.2rem;
+      font-weight: 600;
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 0.2rem;
     }
 
-    label {
-      font-size: 0.85rem;
-      color: var(--muted);
-    }
-
-    input[type="text"] {
-      background: rgba(15,23,42,0.9);
-      border-radius: 999px;
-      border: 1px solid rgba(148,163,184,0.5);
-      padding: 10px 14px;
-      color: var(--text);
-      font-size: 0.9rem;
-      outline: none;
-      transition: border var(--transition-fast), box-shadow var(--transition-fast), transform var(--transition-fast);
-    }
-
-    input[type="text"]:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 1px rgba(37,99,235,0.6);
-      transform: translateY(-1px);
-    }
-
-    .pre-interactive {
-      margin-top: 8px;
-      display: grid;
-      grid-template-columns: minmax(0,1.1fr) minmax(0,1.1fr);
-      gap: 10px;
-    }
-
-    @media (max-width: 640px) {
-      .pre-interactive {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .pill-group {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 4px;
-    }
-
-    .pill-toggle {
-      font-size: 0.75rem;
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(148,163,184,0.5);
-      background: rgba(15,23,42,0.9);
-      color: var(--muted);
-      cursor: pointer;
-      transition: background var(--transition-fast), color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast), border var(--transition-fast);
-    }
-
-    .pill-toggle.active {
-      background: var(--accent-soft);
-      color: var(--accent);
-      border-color: var(--accent);
-      box-shadow: 0 0 0 1px rgba(37,99,235,0.5);
-      transform: translateY(-1px);
-    }
-
-    .info-panel {
+    .panel-title small {
       font-size: 0.8rem;
       color: var(--muted);
-      padding: 8px 10px;
-      border-radius: 12px;
-      border: 1px dashed rgba(148,163,184,0.6);
-      background: rgba(15,23,42,0.7);
-      min-height: 60px;
+      font-weight: 400;
     }
 
-    .flashcards {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 8px;
-    }
-
-    @media (max-width: 480px) {
-      .flashcards {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .flashcard {
-      perspective: 900px;
-      cursor: pointer;
-    }
-
-    .flashcard-inner {
-      position: relative;
-      width: 100%;
-      padding: 10px;
-      border-radius: 12px;
-      border: 1px solid rgba(148,163,184,0.4);
-      background: radial-gradient(circle at top, rgba(15,118,110,0.25), rgba(15,23,42,0.95));
-      transform-style: preserve-3d;
-      transition: transform 0.5s;
-      min-height: 80px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      font-size: 0.8rem;
-    }
-
-    .flashcard-front,
-    .flashcard-back {
-      position: absolute;
-      inset: 0;
-      padding: 10px;
-      backface-visibility: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .flashcard-back {
-      transform: rotateY(180deg);
-    }
-
-    .flashcard.flipped .flashcard-inner {
-      transform: rotateY(180deg);
-    }
-
-    .flashcard-title {
-      font-weight: 600;
-      font-size: 0.85rem;
-      margin-bottom: 4px;
-    }
-
-    .btn {
+    .pill {
       display: inline-flex;
       align-items: center;
-      justify-content: center;
-      gap: 6px;
-      border-radius: 999px;
-      border: 1px solid var(--accent-strong);
-      background: radial-gradient(circle at top, rgba(59,130,246,0.35), rgba(37,99,235,0.95));
-      color: white;
-      font-weight: 600;
-      font-size: 0.9rem;
-      padding: 10px 18px;
-      cursor: pointer;
-      transition: transform var(--transition-fast), box-shadow var(--transition-fast), filter var(--transition-fast), background var(--transition-fast);
-      box-shadow: 0 10px 25px rgba(37,99,235,0.6);
-      margin-top: 8px;
+      gap: 0.35rem;
+      font-size: 0.75rem;
+      padding: 0.25rem 0.7rem;
+      border-radius: 9999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      color: var(--muted);
     }
 
-    .btn span.icon {
+    .pill-dot {
+      width: 0.4rem;
+      height: 0.4rem;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 0.6rem rgba(56, 189, 248, 0.8);
+    }
+
+    .concept-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 1rem;
+      margin-top: 0.5rem;
+    }
+
+    .concept-card {
+      background: linear-gradient(145deg, #020617, #020617);
+      border-radius: var(--radius-xl);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      padding: 0.95rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.18s ease, box-shadow 0.18s ease,
+        border-color 0.18s ease, background 0.18s ease;
+    }
+
+    .concept-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(
+        circle at top,
+        rgba(56, 189, 248, 0.22),
+        transparent 60%
+      );
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      pointer-events: none;
+    }
+
+    .concept-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-sm);
+      border-color: var(--accent-soft);
+      background: radial-gradient(circle at top, #020617, #020617 52%, #020617);
+    }
+
+    .concept-card:hover::before {
+      opacity: 0.6;
+    }
+
+    .concept-card.active {
+      border-color: var(--accent-strong);
+      background: radial-gradient(circle at top, #0b1120, #020617 45%, #020617);
+    }
+
+    .concept-header {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .concept-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 1.2rem;
+      background: radial-gradient(circle at 30% 20%, #38bdf8, #0f172a 65%, #020617);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      box-shadow: 0 10px 22px rgba(56, 189, 248, 0.4);
+      flex-shrink: 0;
+    }
+
+    .concept-title-text {
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+    }
+
+    .concept-title-text h3 {
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .concept-title-text span {
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    .concept-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-bottom: 0.15rem;
+    }
+
+    .concept-tag {
+      font-size: 0.68rem;
+      padding: 0.16rem 0.55rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      color: var(--muted);
+    }
+
+    .concept-body {
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.45;
+      max-height: 0;
+      opacity: 0;
+      transform: translateY(-4px);
+      transition: max-height 0.25s ease, opacity 0.23s ease,
+        transform 0.23s ease;
+    }
+
+    .concept-card.active .concept-body {
+      max-height: 300px;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .concept-hint {
+      font-size: 0.72rem;
+      color: rgba(148, 163, 184, 0.7);
+      margin-top: 0.4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .concept-hint span {
       font-size: 1rem;
     }
 
-    .btn:disabled {
-      opacity: 0.45;
-      cursor: not-allowed;
-      box-shadow: none;
-      filter: grayscale(0.4);
+    /* Panel derecho: nombre + cuestionario */
+    .name-section {
+      background: #020617;
+      border-radius: 1.3rem;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      padding: 1rem 1rem 1.1rem;
+      margin-bottom: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
     }
 
-    .btn:not(:disabled):hover {
-      transform: translateY(-1px) scale(1.01);
-      box-shadow: 0 14px 30px rgba(37,99,235,0.7);
+    .name-section h2 {
+      font-size: 1rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .name-section h2 span {
+      font-size: 1.2rem;
+    }
+
+    .name-section p {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .name-form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+      margin-top: 0.3rem;
+      align-items: center;
+    }
+
+    .name-form input[type="text"] {
+      flex: 1 1 150px;
+      min-width: 0;
+      padding: 0.6rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: #020617;
+      color: var(--text);
+      font-size: 0.85rem;
+      outline: none;
+      transition: border-color 0.16s ease, box-shadow 0.16s ease,
+        background 0.16s ease;
+    }
+
+    .name-form input[type="text"]:focus {
+      border-color: var(--accent-strong);
+      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.7);
+      background: #020617;
+    }
+
+    button {
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .btn-primary {
+      padding: 0.6rem 1.1rem;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+      color: #0b1120;
+      font-size: 0.85rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      box-shadow: 0 12px 30px rgba(56, 189, 248, 0.55);
+      transition: transform 0.12s ease, box-shadow 0.12s ease,
+        filter 0.1s ease, background 0.1s ease;
+      white-space: nowrap;
+    }
+
+    .btn-primary span {
+      font-size: 1rem;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      transform: translateY(-1px);
+      box-shadow: 0 16px 40px rgba(56, 189, 248, 0.7);
       filter: brightness(1.05);
     }
 
-    .btn-secondary {
-      background: transparent;
-      border-color: rgba(148,163,184,0.7);
+    .btn-primary:active:not(:disabled) {
+      transform: translateY(0);
+      box-shadow: 0 8px 20px rgba(56, 189, 248, 0.6);
+      filter: brightness(0.98);
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
       box-shadow: none;
+    }
+
+    .helper-text {
+      font-size: 0.75rem;
       color: var(--muted);
-      padding-inline: 14px;
-      font-weight: 500;
-      font-size: 0.8rem;
-    }
-
-    .btn-secondary:hover {
-      background: rgba(15,23,42,0.9);
-      box-shadow: 0 0 0 1px rgba(148,163,184,0.6);
-      color: var(--text);
-    }
-
-    /* Secciones extra (laboratorio, mini-quiz, glosario) */
-
-    .extra-section {
-      margin-top: 14px;
-      padding-top: 10px;
-      border-top: 1px solid rgba(55,65,81,0.8);
-    }
-
-    .extra-section h3 {
-      font-size: 0.9rem;
-      margin-bottom: 4px;
-    }
-
-    .lab-control {
-      margin-top: 6px;
-      background: rgba(15,23,42,0.85);
-      border-radius: 12px;
-      border: 1px solid rgba(75,85,99,0.9);
-      padding: 8px 10px;
-      font-size: 0.8rem;
-    }
-
-    .lab-control label {
-      font-size: 0.8rem;
-      color: var(--muted);
-      margin-bottom: 4px;
-      display: block;
-    }
-
-    .lab-control input[type="range"] {
-      width: 100%;
-      margin: 6px 0;
-    }
-
-    #performance-text {
-      font-size: 0.8rem;
-      color: var(--muted);
-    }
-
-    .mini-quiz-container {
-      margin-top: 8px;
-      display: grid;
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr);
-      gap: 8px;
-    }
-
-    @media (max-width: 640px) {
-      .mini-quiz-container {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .mini-card {
-      background: rgba(15,23,42,0.9);
-      border-radius: 12px;
-      border: 1px solid rgba(75,85,99,0.9);
-      padding: 8px 10px;
-      font-size: 0.8rem;
       display: flex;
-      flex-direction: column;
-      gap: 6px;
+      align-items: center;
+      gap: 0.25rem;
     }
 
-    .mini-card .statement {
-      font-weight: 500;
-      color: #e5e7eb;
-    }
-
-    .mini-buttons {
-      display: flex;
-      gap: 6px;
-      flex-wrap: wrap;
-    }
-
-    .mini-btn {
-      flex: 1;
-      min-width: 72px;
+    .helper-dot {
+      width: 6px;
+      height: 6px;
       border-radius: 999px;
-      border: 1px solid rgba(148,163,184,0.7);
-      background: rgba(15,23,42,0.9);
-      color: var(--muted);
-      font-size: 0.75rem;
-      padding: 4px 8px;
-      cursor: pointer;
-      transition: background var(--transition-fast), color var(--transition-fast), border var(--transition-fast), transform var(--transition-fast);
+      background: rgba(148, 163, 184, 0.9);
     }
 
-    .mini-btn:hover {
-      transform: translateY(-1px);
-      background: rgba(31,41,55,1);
-      color: var(--text);
-    }
-
-    .mini-btn.correct {
-      background: rgba(22,163,74,0.15);
-      border-color: rgba(22,163,74,0.9);
-      color: #bbf7d0;
-    }
-
-    .mini-btn.incorrect {
-      background: rgba(220,38,38,0.1);
-      border-color: rgba(248,113,113,0.9);
-      color: #fecaca;
-    }
-
-    .mini-feedback {
-      font-size: 0.75rem;
-      color: var(--muted);
-    }
-
-    .mini-score {
-      margin-top: 6px;
-      font-size: 0.8rem;
-      color: var(--muted);
-    }
-
-    .mini-score strong {
-      color: #e5e7eb;
-    }
-
-    .glossary {
-      margin-top: 6px;
-      font-size: 0.8rem;
-    }
-
-    details {
-      background: rgba(15,23,42,0.85);
-      border-radius: 10px;
-      border: 1px solid rgba(75,85,99,0.9);
-      padding: 6px 8px;
-      margin-bottom: 4px;
-    }
-
-    summary {
-      cursor: pointer;
-      font-weight: 500;
-      color: #e5e7eb;
-      list-style: none;
-    }
-
-    summary::marker,
-    summary::-webkit-details-marker {
+    .quiz-section {
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: 1.4rem;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      padding: 1.1rem 1rem 1.3rem;
       display: none;
+      flex-direction: column;
+      gap: 0.9rem;
     }
 
-    summary::before {
-      content: "➤";
-      display: inline-block;
-      margin-right: 6px;
-      font-size: 0.7rem;
-      transition: transform 0.2s;
-      color: var(--accent);
+    .quiz-section.active {
+      display: flex;
     }
-
-    details[open] summary::before {
-      transform: rotate(90deg);
-    }
-
-    details p {
-      margin-top: 4px;
-      color: var(--muted);
-    }
-
-    /* Quiz principal */
 
     .quiz-header {
       display: flex;
-      flex-direction: column;
-      gap: 6px;
-      margin-bottom: 10px;
-    }
-
-    .quiz-top-row {
-      display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 8px;
-      font-size: 0.8rem;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .quiz-header-left h2 {
+      font-size: 1.05rem;
+      font-weight: 600;
+    }
+
+    .quiz-header-left p {
+      font-size: 0.78rem;
       color: var(--muted);
     }
 
-    .badge {
-      padding: 4px 8px;
-      border-radius: 999px;
-      background: rgba(15,23,42,0.9);
-      border: 1px solid rgba(148,163,184,0.4);
-      font-size: 0.75rem;
-    }
-
-    .progress-bar {
-      width: 100%;
-      height: 8px;
-      background: rgba(15,23,42,0.9);
-      border-radius: 999px;
-      overflow: hidden;
-      border: 1px solid rgba(55,65,81,0.9);
-    }
-
-    .progress-fill {
-      height: 100%;
-      width: 0;
-      border-radius: inherit;
-      background: linear-gradient(90deg, var(--accent), #22c55e);
-      transition: width 0.25s ease-out;
-    }
-
-    #question-text {
-      font-size: 1rem;
-      margin-bottom: 10px;
-    }
-
-    #options-list {
-      list-style: none;
+    .quiz-progress {
+      font-size: 0.78rem;
+      color: var(--muted);
       display: flex;
       flex-direction: column;
-      gap: 8px;
-      margin-bottom: 10px;
+      align-items: flex-end;
+      gap: 0.25rem;
     }
 
-    .option-item {
-      border-radius: 14px;
-      border: 1px solid rgba(75,85,99,0.9);
-      background: rgba(15,23,42,0.95);
-      padding: 8px 10px;
+    .quiz-progress-bar {
+      width: 150px;
+      max-width: 100%;
+      height: 6px;
+      border-radius: 999px;
+      background: #020617;
+      overflow: hidden;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+    }
+
+    .quiz-progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #38bdf8, #22c55e);
+      transition: width 0.18s ease;
+    }
+
+    .quiz-card {
+      background: #020617;
+      border-radius: 1.1rem;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      padding: 0.9rem 0.9rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .quiz-question {
+      font-size: 0.88rem;
+      font-weight: 500;
+    }
+
+    .quiz-question span {
+      color: var(--accent-strong);
+      margin-right: 0.25rem;
+    }
+
+    .quiz-options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+      margin-top: 0.2rem;
+    }
+
+    .quiz-option {
       display: flex;
       align-items: flex-start;
-      gap: 8px;
+      gap: 0.4rem;
+      padding: 0.45rem 0.55rem;
+      border-radius: 0.75rem;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      font-size: 0.8rem;
       cursor: pointer;
-      transition: border var(--transition-fast), backgroun
+      transition: background 0.1s ease, border-color 0.1s ease,
+        transform 0.08s ease;
+    }
+
+    .quiz-option:hover {
+      background: rgba(15, 23, 42, 1);
+      transform: translateY(-1px);
+    }
+
+    .quiz-option input {
+      margin-top: 0.12rem;
+      cursor: pointer;
+    }
+
+    .quiz-option-label {
+      cursor: pointer;
+      flex: 1;
+    }
+
+    .quiz-footer {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 0.6rem;
+      align-items: center;
+    }
+
+    .quiz-footer-left {
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    .btn-secondary {
+      padding: 0.45rem 0.9rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--muted);
+      font-size: 0.78rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      cursor: pointer;
+      transition: background 0.1s ease, border-color 0.1s ease;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(15, 23, 42, 1);
+      border-color: rgba(148, 163, 184, 0.8);
+    }
+
+    .btn-next {
+      padding-inline: 1.2rem;
+    }
+
+    .quiz-result {
+      margin-top: 0.8rem;
+      background: #020617;
+      border-radius: 1.1rem;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      padding: 0.9rem;
+      display: none;
+      flex-direction: column;
+      gap: 0.6rem;
+      max-height: 300px;
+      overflow: auto;
+    }
+
+    .quiz-result.active {
+      display: flex;
+    }
+
+    .result-summary {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      font-size: 0.83rem;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.75rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+    }
+
+    .badge.success {
+      background: rgba(34, 197, 94, 0.1);
+      color: var(--success);
+      border: 1px solid rgba(34, 197, 94, 0.4);
+    }
+
+    .badge.error {
+      background: rgba(239, 68, 68, 0.1);
+      color: var(--danger);
+      border: 1px solid rgba(239, 68, 68, 0.5);
+    }
+
+    .result-list {
+      font-size: 0.78rem;
+      color: var(--muted);
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+    }
+
+    .result-item {
+      border-top: 1px dashed rgba(55, 65, 81, 0.8);
+      padding-top: 0.45rem;
+    }
+
+    .result-item:first-child {
+      border-top: none;
+      padding-top: 0;
+    }
+
+    .result-item p {
+      margin-bottom: 0.15rem;
+    }
+
+    .result-item strong {
+      color: var(--text);
+    }
+
+    .result-item .ok {
+      color: var(--success);
+    }
+
+    .result-item .fail {
+      color: var(--danger);
+    }
+
+    footer {
+      font-size: 0.7rem;
+      color: var(--muted);
+      padding: 0.75rem 1.25rem 1.2rem;
+      text-align: center;
+    }
+
+    @media (max-width: 600px) {
+      header {
+        padding-inline: 1rem;
+      }
+      main {
+        padding-inline: 1rem;
+      }
+      .panel,
+      .quiz-section,
+      .name-section {
+        padding-inline: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <div class="logo-title">
+        <div class="logo-badge">⚙️</div>
+        <div class="title-text">
+          <h1>Hardware & Redes Interactivo</h1>
+          <p>Explora los conceptos y pon a prueba tus conocimientos.</p>
+        </div>
+      </div>
+      <div class="student-box" id="studentBox" style="display:none;">
+        <span>Estudiante:</span>
+        <strong id="studentNameLabel">Nombre</strong>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="page-inner">
+      <!-- PANEL IZQUIERDO: CONCEPTOS INTERACTIVOS -->
+      <section class="panel">
+        <div class="panel-header">
+          <div class="panel-title">
+            Hardware y Redes
+            <small>Haz clic en cada bloque para desplegar la información.</small>
+          </div>
+          <div class="pill">
+            <span class="pill-dot"></span>
+            Modo estudio activo
+          </div>
+        </div>
+
+        <div class="concept-grid">
+          <!-- Concepto Hardware básico -->
+          <article class="concept-card">
+            <div class="concept-header">
+              <div class="concept-icon" aria-hidden="true">🖥️</div>
+              <div class="concept-title-text">
+                <h3>Hardware</h3>
+                <span>La parte física del computador</span>
+              </div>
+            </div>
+            <div class="concept-tags">
+              <span class="concept-tag">CPU</span>
+              <span class="concept-tag">Memoria</span>
+              <span class="concept-tag">Periféricos</span>
+            </div>
+            <p class="concept-body">
+              El <strong>hardware</strong> incluye todos los componentes físicos de
+              un sistema de cómputo: la torre, la placa madre, la fuente de poder,
+              memorias, discos, cables y dispositivos conectados (teclado, ratón,
+              monitor, impresora, etc.).<br /><br />
+              El hardware trabaja junto al <em>software</em>, que son los programas
+              e instrucciones que le dicen al hardware qué hacer.
+            </p>
+            <div class="concept-hint">
+              <span>👆</span> Toca para desplegar y plegar la explicación.
+            </div>
+          </article>
+
+          <!-- CPU -->
+          <article class="concept-card">
+            <div class="concept-header">
+              <div class="concept-icon" aria-hidden="true">🧠</div>
+              <div class="concept-title-text">
+                <h3>CPU (Procesador)</h3>
+                <span>El "cerebro" del equipo</span>
+              </div>
+            </div>
+            <div class="concept-tags">
+              <span class="concept-tag">ALU</span>
+              <span class="concept-tag">Unidad de control</span>
+              <span class="concept-tag">GHz</span>
+            </div>
+            <p class="concept-body">
+              La <strong>CPU</strong> ejecuta instrucciones: realiza cálculos
+              aritméticos y lógicos, y coordina a los demás componentes. Su
+              velocidad se mide en <strong>GHz</strong> (gigahercios).<br /><br />
+              Una CPU moderna cuenta con varios <em>núcleos</em> que permiten
+              procesar múltiples tareas de forma paralela.
+            </p>
+            <div class="concept-hint">
+              <span>👆</span> Activa el bloque para ver más detalles.
+            </div>
+          </article>
+
+          <!-- Memoria RAM -->
+          <article class="concept-card">
+            <div class="concept-header">
+              <div class="concept-icon" aria-hidden="true">💾</div>
+              <div class="concept-title-text">
+                <h3>Memoria RAM</h3>
+                <span>Memoria principal y volátil</span>
+              </div>
+            </div>
+            <div class="concept-tags">
+              <span class="concept-tag">Volátil</span>
+              <span class="concept-tag">GB</span>
+              <span class="concept-tag">Velocidad</span>
+            </div>
+            <p class="concept-body">
+              La <strong>RAM</strong> almacena temporalmente los datos e
+              instrucciones que la CPU está usando en ese momento. Es una memoria
+              muy rápida pero <strong>volátil</strong>: su contenido se pierde al
+              apagar el equipo.<br /><br />
+              Cuanta más RAM tiene un PC, más programas puede mantener abiertos a
+              la vez con fluidez.
+            </p>
+            <div class="concept-hint">
+              <span>👆</span> Haz clic para entender la diferencia con el disco.
+            </div>
+          </article>
+
+          <!-- Almacenamiento -->
+          <article class="concept-card">
+            <div class="concept-header">
+              <div class="concept-icon" aria-hidden="true">🗄️</div>
+              <div class="concept-title-text">
+                <h3>Almacenamiento</h3>
+                <span>Discos duros y SSD</span>
+              </div>
+            </div>
+            <div class="concept-tags">
+              <span class="concept-tag">HDD</span>
+              <span class="concept-tag">SSD</span>
+              <span class="concept-tag">No volátil</span>
+            </div>
+            <p class="concept-body">
+              Los dispositivos de <strong>almacenamiento</strong> guardan la
+              información de forma <strong>permanente</strong>: el sistema
+              operativo, los programas y los archivos del usuario.<br /><br />
+              Los <strong>HDD</strong> son discos mecánicos, más baratos y
+              lentos. Los <strong>SSD</strong> son más rápidos, silenciosos y
+              resistentes a golpes.
+            </p>
+            <div class="concept-hint">
+              <span>👆</span> Compara HDD vs SSD con este bloque.
+            </div>
+          </article>
+
+          <!-- Periféricos -->
+          <article class="concept-card">
+            <div class="concept-header">
+              <div class="concept-icon" aria-hidden="true">⌨️</div>
+              <div class="concept-title-text">
+                <h3>Periféricos</h3>
+                <span>Entrada, salida y mixtos</span>
+              </div>
+            </div>
+            <div class="concept-tags">
+              <span class="concept-tag">Teclado</span>
+              <span class="concept-tag">Monitor</span>
+              <span class="concept-tag">Impresora</span>
+            </div>
+            <p class="concept-body">
+              Los <strong>periféricos</strong> permiten la comunicación entre el
+              usuario y el computador.<br />
+              - De <strong>entrada</strong>: teclado, ratón, escáner.<br />
+              - De <strong>salida</strong>: monitor, parlantes, impresora.<br />
+              - De <strong>entrada/salida</strong>: pantalla táctil, memorias
+              USB, discos externos.
+            </p>
+            <div class="concept-hint">
+              <span>👆</span> Identifica cada periférico según su función.
+            </div>
+          </article>
+
+          <!-- Redes -->
+          <article class="concept-card">
+            <div class="concept-header">
+              <div class="concept-icon" aria-hidden="true">🌐</div>
+              <div class="concept-title-text">
+                <h3>Red de computadoras</h3>
+                <span>Equipos que se comunican</span>
+              </div>
+            </div>
+            <div class="concept-tags">
+              <span class="concept-tag">LAN</span>
+              <span class="concept-tag">WAN</span>
+              <span class="concept-tag">Internet</span>
+            </div>
+            <p class="concept-body">
+              Una <strong>red de computadoras</strong> es un conjunto de equipos
+              conectados para compartir recursos (archivos, impresoras, Internet,
+              etc.).<br /><br />
+              Según su alcance pueden ser: <strong>LAN</strong> (local, como una
+              red de aula), <strong>MAN</strong> (metropolitana) o
+              <strong>WAN</strong> (grandes distancias, como Internet).
+            </p>
+            <div class="concept-hint">
+              <span>👆</span> Descubre los tipos de redes al tocar.
+            </div>
+          </article>
+
+          <!-- Dispositivos de red -->
+          <article class="concept-card">
+            <div class="concept-header">
+              <div class="concept-icon" aria-hidden="true">📡</div>
+              <div class="concept-title-text">
+                <h3>Dispositivos de red</h3>
+                <span>Conectando equipos</span>
+              </div>
+            </div>
+            <div class="concept-tags">
+              <span class="concept-tag">Router</span>
+              <span class="concept-tag">Switch</span>
+              <span class="concept-tag">Access Point</span>
+            </div>
+            <p class="concept-body">
+              El <strong>router</strong> conecta la red local con otras redes (por
+              ejemplo, tu red de casa con Internet). El <strong>switch</strong>
+              conecta múltiples equipos dentro de la misma red local.<br /><br />
+              Un <strong>punto de acceso</strong> (Access Point) permite que los
+              dispositivos se conecten de forma inalámbrica mediante Wi-Fi.
+            </p>
+            <div class="concept-hint">
+              <span>👆</span> Diferencia router, switch y AP.
+            </div>
+          </article>
+
+          <!-- Direccionamiento IP -->
+          <article class="concept-card">
+            <div class="concept-header">
+              <div class="concept-icon" aria-hidden="true">🔢</div>
+              <div class="concept-title-text">
+                <h3>Dirección IP</h3>
+                <span>Identidad en la red</span>
+              </div>
+            </div>
+            <div class="concept-tags">
+              <span class="concept-tag">IPv4</span>
+              <span class="concept-tag">IPv6</span>
+              <span class="concept-tag">Máscara</span>
+            </div>
+            <p class="concept-body">
+              Una <strong>dirección IP</strong> identifica de forma lógica a cada
+              dispositivo en la red. Una dirección IPv4 típica se ve así:
+              <code>192.168.1.10</code>.<br /><br />
+              La <strong>máscara de subred</strong> indica qué parte de la IP
+              corresponde a la red y cuál al host (equipo).
+            </p>
+            <div class="concept-hint">
+              <span>👆</span> Observa el formato de una IP.
+            </div>
+          </article>
+
+          <!-- Modelo OSI -->
+          <article class="concept-card">
+            <div class="concept-header">
+              <div class="concept-icon" aria-hidden="true">📶</div>
+              <div class="concept-title-text">
+                <h3>Modelo OSI</h3>
+                <span>Capas de comunicación</span>
+              </div>
+            </div>
+            <div class="concept-tags">
+              <span class="concept-tag">7 capas</span>
+              <span class="concept-tag">Transporte</span>
+              <span class="concept-tag">Red</span>
+            </div>
+            <p class="concept-body">
+              El <strong>modelo OSI</strong> divide la comunicación en 7 capas:
+              Física, Enlace de datos, Red, Transporte, Sesión, Presentación y
+              Aplicación.<br /><br />
+              Cada capa tiene funciones específicas y se apoya en la inferior para
+              enviar los datos paso a paso a través de la red.
+            </p>
+            <div class="concept-hint">
+              <span>👆</span> Intenta recordar las 7 capas.
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- PANEL DERECHO: NOMBRE + CUESTIONARIO -->
+      <section>
+        <!-- Nombre del estudiante -->
+        <div class="name-section">
+          <h2><span>👋</span> ¡Bienvenido al cuestionario!</h2>
+          <p>
+            Primero escribe tu nombre. Esto activará el botón de inicio del
+            cuestionario.
+          </p>
+          <div class="name-form">
+            <input
+              type="text"
+              id="studentNameInput"
+              placeholder="Escribe tu nombre aquí..."
+              autocomplete="off"
+            />
+            <button class="btn-primary" id="startBtn" disabled>
+              <span>🚀</span> Iniciar cuestionario
+            </button>
+          </div>
+          <div class="helper-text">
+            <div class="helper-dot"></div>
+            Serás evaluado con 15 preguntas de opción múltiple.
+          </div>
+        </div>
+
+        <!-- Cuestionario -->
+        <div class="quiz-section" id="quizSection">
+          <div class="quiz-header">
+            <div class="quiz-header-left">
+              <h2>Cuestionario de Hardware y Redes</h2>
+              <p>Responde con calma. Puedes revisar tu resultado al final.</p>
+            </div>
+            <div class="quiz-progress">
+              <span id="quizProgressText">Pregunta 0 / 15</span>
+              <div class="quiz-progress-bar">
+                <div class="quiz-progress-fill" id="quizProgressFill"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="quiz-card">
+            <p class="quiz-question" id="questionText">
+              <!-- Texto de la pregunta -->
+            </p>
+            <div class="quiz-options" id="optionsContainer">
+              <!-- Opciones -->
+            </div>
+          </div>
+
+          <div class="quiz-footer">
+            <div class="quiz-footer-left" id="feedbackMessage">
+              Elige una opción para continuar.
+            </div>
+            <div class="quiz-footer-actions">
+              <button class="btn-secondary" id="restartBtn" style="display:none;">
+                🔄 Reiniciar
+              </button>
+              <button class="btn-primary btn-next" id="nextBtn">
+                Siguiente ➜
+              </button>
+            </div>
+          </div>
+
+          <!-- Resultado final -->
+          <div class="quiz-result" id="quizResult">
+            <div class="result-summary" id="summaryHeader">
+              <!-- Resumen de aciertos/fallos -->
+            </div>
+            <div class="result-list" id="resultList">
+              <!-- Detalle por pregunta -->
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    Interfaz educativa de ejemplo — Hardware y redes de computadoras. Diseñada
+    para verse bien en móvil, tablet y escritorio.
+  </footer>
+
+  <script>
+    // ==========================
+    //   INTERACCIÓN CONCEPTOS
+    // ==========================
+    const conceptCards = document.querySelectorAll(".concept-card");
+    conceptCards.forEach((card) => {
+      card.addEventListener("click", () => {
+        // Permite abrir/cerrar individualmente
+        card.classList.toggle("active");
+      });
+    });
+
+    // ==================================
+    //   CUESTIONARIO: LÓGICA PRINCIPAL
+    // ==================================
+
+    const studentNameInput = document.getElementById("studentNameInput");
+    const startBtn = document.getElementById("startBtn");
+    const studentBox = document.getElementById("studentBox");
+    const studentNameLabel = document.getElementById("studentNameLabel");
+
+    const quizSection = document.getElementById("quizSection");
+    const questionText = document.getElementById("questionText");
+    const optionsContainer = document.getElementById("optionsContainer");
+    const nextBtn = document.getElementById("nextBtn");
+    const restartBtn = document.getElementById("restartBtn");
+    const feedbackMessage = document.getElementById("feedbackMessage");
+
+    const quizProgressText = document.getElementById("quizProgressText");
+    const quizProgressFill = document.getElementById("quizProgressFill");
+
+    const quizResult = document.getElementById("quizResult");
+    const summaryHeader = document.getElementById("summaryHeader");
+    const resultList = document.getElementById("resultList");
+
+    const TOTAL_QUESTIONS = 15;
+
+    // Banco de preguntas (más de 5, aquí hay varias)
+    const questionBank = [
+      {
+        question:
+          "¿Qué componente se conoce comúnmente como el 'cerebro' del computador?",
+        options: ["La memoria RAM", "La CPU", "El disco duro", "La fuente de poder"],
+        correctIndex: 1,
+        topic: "hardware",
+      },
+      {
+        question:
+          "¿Cuál de las siguientes memorias es VOLÁTIL (pierde la información al apagar)?",
+        options: ["Disco duro", "SSD", "Memoria RAM", "Memoria USB"],
+        correctIndex: 2,
+        topic: "hardware",
+      },
+      {
+        question:
+          "¿Qué tipo de dispositivo es el teclado dentro de la clasificación de periféricos?",
+        options: [
+          "Dispositivo de salida",
+          "Dispositivo de entrada",
+          "Dispositivo de almacenamiento",
+          "Dispositivo de red",
+        ],
+        correctIndex: 1,
+        topic: "hardware",
+      },
+      {
+        question:
+          "¿Cuál es la principal ventaja de un disco SSD frente a un HDD?",
+        options: [
+          "Tiene partes mecánicas más grandes",
+          "Es mucho más lento",
+          "Es más rápido y resistente a golpes",
+          "Solo sirve para servidores",
+        ],
+        correctIndex: 2,
+        topic: "hardware",
+      },
+      {
+        question:
+          "¿Qué tipo de red conecta equipos dentro de un área pequeña como un salón de clases?",
+        options: ["LAN", "WAN", "MAN", "PAN (red personal)"],
+        correctIndex: 0,
+        topic: "redes",
+      },
+      {
+        question:
+          "¿Cuál de los siguientes dispositivos se encarga de conectar una red local con Internet?",
+        options: ["Switch", "Router", "Hub", "Impresora de red"],
+        correctIndex: 1,
+        topic: "redes",
+      },
+      {
+        question:
+          "Una dirección IP como 192.168.1.15 pertenece a qué versión de protocolo:",
+        options: ["IPv2", "IPv4", "IPv5", "IPv6"],
+        correctIndex: 1,
+        topic: "redes",
+      },
+      {
+        question:
+          "En el modelo OSI, ¿en qué capa se encuentran protocolos como TCP y UDP?",
+        options: [
+          "Capa de Aplicación",
+          "Capa de Red",
+          "Capa de Transporte",
+          "Capa Física",
+        ],
+        correctIndex: 2,
+        topic: "redes",
+      },
+      {
+        question:
+          "¿Cuál de las siguientes NO es una función típica de la CPU?",
+        options: [
+          "Ejecutar instrucciones de programas",
+          "Realizar operaciones aritméticas",
+          "Coordinar otros componentes",
+          "Almacenar permanentemente archivos",
+        ],
+        correctIndex: 3,
+        topic: "hardware",
+      },
+      {
+        question:
+          "¿Qué tipo de periférico es un monitor dentro de un PC de escritorio?",
+        options: [
+          "Periférico de entrada",
+          "Periférico de salida",
+          "Periférico de red",
+          "Periférico mixto",
+        ],
+        correctIndex: 1,
+        topic: "hardware",
+      },
+      {
+        question:
+          "¿Qué significa que una memoria sea NO VOLÁTIL?",
+        options: [
+          "Que solo puede leerse y no escribirse",
+          "Que conserva la información al apagar el equipo",
+          "Que funciona sin energía eléctrica",
+          "Que es más rápida que la RAM",
+        ],
+        correctIndex: 1,
+        topic: "hardware",
+      },
+      {
+        question:
+          "¿Cuál de los siguientes medios se considera cableado para redes?",
+        options: [
+          "Wi-Fi",
+          "Fibra óptica",
+          "Bluetooth",
+          "Infrarrojo",
+        ],
+        correctIndex: 1,
+        topic: "redes",
+      },
+      {
+        question:
+          "¿Qué dispositivo de red se utiliza principalmente para interconectar muchos equipos dentro de una misma red local?",
+        options: ["Switch", "Router", "Módem", "Firewall"],
+        correctIndex: 0,
+        topic: "redes",
+      },
+      {
+        question:
+          "En una dirección IP, ¿qué indica la máscara de subred?",
+        options: [
+          "La velocidad máxima de la conexión",
+          "Qué parte de la IP identifica la red y el host",
+          "La contraseña de la red",
+          "El tipo de cable usado",
+        ],
+        correctIndex: 1,
+        topic: "redes",
+      },
+      {
+        question:
+          "¿Cuál de las siguientes capas del modelo OSI es la más cercana al usuario final?",
+        options: [
+          "Capa de Red",
+          "Capa de Transporte",
+          "Capa de Enlace de datos",
+          "Capa de Aplicación",
+        ],
+        correctIndex: 3,
+        topic: "redes",
+      },
+      {
+        question:
+          "¿Qué componente se encarga de entregar la energía adecuada a todos los elementos del computador?",
+        options: [
+          "Placa madre",
+          "Fuente de poder",
+          "Tarjeta de video",
+          "Memoria RAM",
+        ],
+        correctIndex: 1,
+        topic: "hardware",
+      },
+      {
+        question:
+          "¿Qué tipo de red abarca grandes distancias, como la que conecta ciudades o países?",
+        options: ["LAN", "MAN", "WAN", "PAN"],
+        correctIndex: 2,
+        topic: "redes",
+      },
+      {
+        question:
+          "¿Qué característica es más importante en una memoria RAM para mejorar el rendimiento general?",
+        options: [
+          "Capacidad (GB) y velocidad",
+          "Peso físico",
+          "Color de los módulos",
+          "Número de conectores de energía",
+        ],
+        correctIndex: 0,
+        topic: "hardware",
+      },
+      {
+        question:
+          "Cuando hablamos de Wi-Fi, ¿a qué tipo de red nos referimos normalmente en casa o en la escuela?",
+        options: ["Red LAN inalámbrica", "Red WAN", "Red MAN", "Red de fibra óptica"],
+        correctIndex: 0,
+        topic: "redes",
+      },
+      {
+        question:
+          "¿Cuál de los siguientes ejemplos pertenece a un dispositivo de ENTRADA/SALIDA?",
+        options: [
+          "Teclado",
+          "Monitor",
+          "Pantalla táctil",
+          "Parlantes",
+        ],
+        correctIndex: 2,
+        topic: "hardware",
+      }
+    ];
+
+    let selectedQuestions = [];
+    let currentIndex = 0;
+    let userAnswers = []; // Guarda el índice de la opción seleccionada
+    let userName = "";
+
+    // Habilitar el botón de iniciar cuando haya nombre
+    studentNameInput.addEventListener("input", () => {
+      const value = studentNameInput.value.trim();
+      startBtn.disabled = value.length === 0;
+    });
+
+    startBtn.addEventListener("click", () => {
+      const value = studentNameInput.value.trim();
+      if (!value) return;
+      userName = value;
+      studentNameLabel.textContent = userName;
+      studentBox.style.display = "flex";
+
+      // Inicializar cuestionario
+      initQuiz();
+    });
+
+    function initQuiz() {
+      // Reiniciar estado
+      quizResult.classList.remove("active");
+      resultList.innerHTML = "";
+      summaryHeader.innerHTML = "";
+      feedbackMessage.textContent = "Elige una opción para continuar.";
+      restartBtn.style.display = "none";
+      nextBtn.disabled = false;
+      nextBtn.textContent = "Siguiente ➜";
+
+      // Seleccionar preguntas aleatorias
+      selectedQuestions = shuffleArray([...questionBank]).slice(0, TOTAL_QUESTIONS);
+      userAnswers = new Array(selectedQuestions.length).fill(null);
+      currentIndex = 0;
+
+      // Mostrar sección del cuestionario
+      quizSection.classList.add("active");
+
+      renderQuestion();
+      updateProgress();
+    }
+
+    // Barajar arreglo (Fisher-Yates)
+    function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    function renderQuestion() {
+      const qObj = selectedQuestions[currentIndex];
+      if (!qObj) return;
+
+      questionText.innerHTML = `<span>${currentIndex + 1}.</span> ${qObj.question}`;
+
+      // Limpiar opciones
+      optionsContainer.innerHTML = "";
+
+      qObj.options.forEach((opt, index) => {
+        const optionId = `q${currentIndex}_opt${index}`;
+        const wrapper = document.createElement("label");
+        wrapper.className = "quiz-option";
+        wrapper.htmlFor = optionId;
+
+        const input = document.createElement("input");
+        input.type = "radio";
+        input.name = "questionOptions";
+        input.value = String(index);
+        input.id = optionId;
+
+        if (userAnswers[currentIndex] === index) {
+          input.checked = true;
+        }
+
+        const labelText = document.createElement("div");
+        labelText.className = "quiz-option-label";
+        labelText.textContent = opt;
+
+        wrapper.appendChild(input);
+        wrapper.appendChild(labelText);
+        optionsContainer.appendChild(wrapper);
+      });
+
+      // Actualizar botón (si es última pregunta)
+      if (currentIndex === selectedQuestions.length - 1) {
+        nextBtn.textContent = "Finalizar cuestionario ✔";
+      } else {
+        nextBtn.textContent = "Siguiente ➜";
+      }
+    }
+
+    function updateProgress() {
+      const current = currentIndex + 1;
+      const total = selectedQuestions.length;
+      quizProgressText.textContent = `Pregunta ${current} / ${total}`;
+      const percent = (current / total) * 100;
+      quizProgressFill.style.width = `${percent}%`;
+    }
+
+    nextBtn.addEventListener("click", () => {
+      // Verificar que el estudiante haya seleccionado una opción
+      const selected = document.querySelector(
+        'input[name="questionOptions"]:checked'
+      );
+      if (!selected) {
+        feedbackMessage.textContent =
+          "Primero selecciona una respuesta antes de continuar.";
+        return;
+      }
+
+      const answerIndex = parseInt(selected.value, 10);
+      userAnswers[currentIndex] = answerIndex;
+      feedbackMessage.textContent = "Respuesta registrada. ¡Vamos a la siguiente!";
+
+      // Si es la última pregunta, mostrar resultados
+      if (currentIndex === selectedQuestions.length - 1) {
+        showResults();
+        return;
+      }
+
+      // Pasar a la siguiente pregunta
+      currentIndex++;
+      renderQuestion();
+      updateProgress();
+    });
+
+    function showResults() {
+      // Desactivar botón siguiente
+      nextBtn.disabled = true;
+      feedbackMessage.textContent = "Cuestionario finalizado.";
+
+      // Calcular aciertos
+      let correct = 0;
+      selectedQuestions.forEach((q, i) => {
+        if (userAnswers[i] === q.correctIndex) {
+          correct++;
+        }
+      });
+
+      const incorrect = selectedQuestions.length - correct;
+      const percent = Math.round((correct / selectedQuestions.length) * 100);
+
+      quizResult.classList.add("active");
+      summaryHeader.innerHTML = `
+        <div>
+          <strong>Resultado de ${userName}</strong><br>
+          Obtuviste <strong>${correct}</strong> de ${
+        selectedQuestions.length
+      } preguntas correctas (${percent}%).
+        </div>
+        <div>
+          <span class="badge success">✅ Aciertos: ${correct}</span>
+          <span class="badge error">❌ Fallos: ${incorrect}</span>
+        </div>
+      `;
+
+      resultList.innerHTML = "";
+      selectedQuestions.forEach((q, i) => {
+        const userIndex = userAnswers[i];
+        const isCorrect = userIndex === q.correctIndex;
+        const item = document.createElement("div");
+        item.className = "result-item";
+        item.innerHTML = `
+          <p><strong>${i + 1}.</strong> ${q.question}</p>
+          <p><span class="${
+            isCorrect ? "ok" : "fail"
+          }">${isCorrect ? "✔ Correcta" : "✖ Incorrecta"}</span></p>
+          <p><strong>Tu respuesta:</strong> ${
+            userIndex !== null ? q.options[userIndex] : "Sin responder"
+          }</p>
+          <p><strong>Respuesta correcta:</strong> ${q.options[q.correctIndex]}</p>
+        `;
+        resultList.appendChild(item);
+      });
+
+      restartBtn.style.display = "inline-flex";
+    }
+
+    restartBtn.addEventListener("click", () => {
+      // El cuestionario se vuelve a inicializar con nuevas preguntas aleatorias
+      initQuiz();
+    });
+  </script>
+</body>
+</html>
